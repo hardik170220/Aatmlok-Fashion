@@ -9,12 +9,13 @@ import { Slider } from "@/components/ui/slider"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 const categories = [
-  { id: "necklaces", name: "Necklaces" },
-  { id: "earrings", name: "Earrings" },
-  { id: "bangles", name: "Bangles" },
-  { id: "dresses", name: "Dresses" },
-  { id: "sarees", name: "Sarees" },
-  { id: "suits", name: "Suits" },
+  { id: "Jewellery", name: "Jewellery" },
+  // { value: "Earrings", label: "Earrings" },
+  // { value: "Bangles", label: "Bangles" },
+  { id: "Dresses", name: "Dresses" },
+  { id: "Sarees", name: "Sarees" },
+  // { value: "Suits", label: "Suits" },
+  { id: "Others", name: "Others" },
 ]
 
 export function ProductsFilter() {

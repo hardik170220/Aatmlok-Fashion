@@ -17,12 +17,13 @@ import { ImageUpload } from "@/components/admin/image-upload"
 import { useToast } from "@/components/ui/use-toast"
 
 const categories = [
-  { value: "Necklaces", label: "Necklaces" },
-  { value: "Earrings", label: "Earrings" },
-  { value: "Bangles", label: "Bangles" },
+  { value: "Jewellery", label: "Jewellery" },
+  // { value: "Earrings", label: "Earrings" },
+  // { value: "Bangles", label: "Bangles" },
   { value: "Dresses", label: "Dresses" },
   { value: "Sarees", label: "Sarees" },
-  { value: "Suits", label: "Suits" },
+  // { value: "Suits", label: "Suits" },
+  { value: "Others", label: "Others" },
 ]
 
 export default function EditProductPage({ params }: { params: { id: string } }) {

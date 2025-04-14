@@ -4,8 +4,9 @@ import { ProductsFilter } from "@/components/products-filter"
 import { ProductsSearch } from "@/components/products-search"
 import { ProductsSkeleton } from "@/components/products-skeleton"
 
-export default function CategoryProductsPage({ params }: { params: { category: string } }) {
-  const categoryName = params.category.charAt(0).toUpperCase() + params.category.slice(1)
+export default async function CategoryProductsPage({ params }: { params: { category: string } }) {
+  const categoryName =  params.category.charAt(0).toUpperCase() + params.category.slice(1);
+  
 
   return (
     <div className="container px-4 py-8 md:py-12">
