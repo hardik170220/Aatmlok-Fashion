@@ -260,7 +260,7 @@ export default function Home() {
                   alt="Aatmlok Fashion Collection"
                   className="relative aspect-[4/3] overflow-hidden rounded-xl object-contain object-center sm:w-full"
                   height="550"
-                  src="/hero3.png"
+                  src="/hero2.png"
                   width="550"
                 />
               </div>
