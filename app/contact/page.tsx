@@ -84,8 +84,8 @@ export default function ContactPage() {
             <div className="space-y-6">
               <div>
                 <h3 className="text-lg font-medium mb-2">Visit Our Store</h3>
-                <p className="text-gray-500">Pal Gam, Adhyatm Parivar, 3rd Floor</p>
-                <p className="text-gray-500">Surat, 394510</p>
+                <p className="text-gray-500">Idar, Sabarkantha district </p>
+                <p className="text-gray-500">383430, Gujarat</p>
               </div>
               <div>
                 <h3 className="text-lg font-medium mb-2">Contact Information</h3>

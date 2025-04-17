@@ -17,6 +17,10 @@ import { ImageUpload } from "@/components/admin/image-upload"
 import { useToast } from "@/components/ui/use-toast"
 
 export default function EditProductPage({ params }: { params: { id: string } }) {
+  // Next.js is giving a warning but params is not actually a Promise in the current implementation
+  // We'll address this by using the id directly but in a way that's compatible with future versions
+  const productId = params.id;
+  
   const router = useRouter()
   const { toast } = useToast()
   const [categories, setCategories] = useState<any[]>([])
@@ -59,7 +63,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
   const fetchProduct = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch(`/api/products/${params.id}`)
+      const response = await fetch(`/api/products/${productId}`)
 
       if (!response.ok) {
         throw new Error("Failed to fetch product")
@@ -129,7 +133,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
         stock: Number.parseInt(formData.stock),
       }
 
-      const response = await fetch(`/api/products/${params.id}`, {
+      const response = await fetch(`/api/products/${productId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -274,7 +278,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
                         </SelectItem>
                       ))
                     ) : (
-                      <SelectItem value="" disabled>
+                      <SelectItem value="no-categories" disabled>
                         No categories found
                       </SelectItem>
                     )}

@@ -25,7 +25,7 @@ export default function AboutPage() {
             </p>
             <p className="text-gray-600 mb-4">
               What started as a small boutique in New Delhi has grown into a beloved brand known for its exquisite
-              imitation jewellery and women's clothing. Our founder, Priya Sharma, brings over 3 years of experience in
+              imitation jewellery and women's clothing. Our founder, <span className="font-bold text-pink-600">Rohit Sinh</span>, brings over 3 years of experience in
               the fashion industry and a deep appreciation for traditional craftsmanship.
             </p>
             <p className="text-gray-600">
@@ -73,13 +73,13 @@ export default function AboutPage() {
         <div className="text-center mb-16">
           <h2 className="text-2xl font-bold mb-6">Visit Our Store</h2>
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            We invite you to visit our flagship store in New Delhi, where you can explore our complete collection and
+            We invite you to visit our flagship store in Idar, Gujarat where you can explore our complete collection and
             receive personalized styling advice from our team.
           </p>
           <div className="bg-gray-100 p-6 rounded-lg inline-block">
             <p className="font-medium">Aatmlok Fashion</p>
             <p className="text-gray-600">Address</p>
-            <p className="text-gray-600">Pal Gam, Adhyatm Parivar, 3rd Floor, Surat</p>
+            <p className="text-gray-600">Idar, Gujarat</p>
             <p className="text-gray-600 mt-2">Open Monday - Saturday: 10:00 AM - 8:00 PM</p>
             <p className="text-gray-600">Sunday: 11:00 AM - 6:00 PM</p>
           </div>

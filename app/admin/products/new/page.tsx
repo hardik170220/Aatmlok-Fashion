@@ -203,7 +203,7 @@ export default function NewProductPage() {
                         </SelectItem>
                       ))
                     ) : (
-                      <SelectItem value="" disabled>
+                      <SelectItem value="no-categories" disabled>
                         No categories found
                       </SelectItem>
                     )}
