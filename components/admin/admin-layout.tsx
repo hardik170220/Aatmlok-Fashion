@@ -5,7 +5,8 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
-import { BarChart3, Home, LogOut, Menu, Package, Settings, ShoppingCart, User, X } from "lucide-react"
+// Add the LayoutGrid import
+import { BarChart3, Home, LogOut, Menu, Package, Settings, ShoppingCart, User, X, LayoutGrid } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -50,6 +51,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
     }
   }, [router])
 
+  // Update the routes array to include categories
   const routes = [
     {
       href: "/admin/dashboard",
@@ -64,29 +66,35 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       active: pathname === "/admin/products" || pathname.startsWith("/admin/products/"),
     },
     {
+      href: "/admin/categories",
+      label: "Categories",
+      icon: LayoutGrid,
+      active: pathname === "/admin/categories" || pathname.startsWith("/admin/categories/"),
+    },
+    {
       href: "/admin/orders",
       label: "Orders",
       icon: ShoppingCart,
       active: pathname === "/admin/orders" || pathname.startsWith("/admin/orders/"),
     },
-    // {
-    //   href: "/admin/customers",
-    //   label: "Customers",
-    //   icon: User,
-    //   active: pathname === "/admin/customers",
-    // },
-    // {
-    //   href: "/admin/analytics",
-    //   label: "Analytics",
-    //   icon: BarChart3,
-    //   active: pathname === "/admin/analytics",
-    // },
-    // {
-    //   href: "/admin/settings",
-    //   label: "Settings",
-    //   icon: Settings,
-    //   active: pathname === "/admin/settings",
-    // },
+    {
+      href: "/admin/customers",
+      label: "Customers",
+      icon: User,
+      active: pathname === "/admin/customers",
+    },
+    {
+      href: "/admin/analytics",
+      label: "Analytics",
+      icon: BarChart3,
+      active: pathname === "/admin/analytics",
+    },
+    {
+      href: "/admin/settings",
+      label: "Settings",
+      icon: Settings,
+      active: pathname === "/admin/settings",
+    },
   ]
 
   const handleLogout = () => {
@@ -216,7 +224,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       {/* Main content */}
       <main className="flex-1 overflow-auto p-6 md:p-8">{children}</main>
       <Dialog open={showLogoutConfirm} onOpenChange={setShowLogoutConfirm}>
-        <DialogContent className="sm:max-w-[425px] flex flex-col">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Confirm Logout</DialogTitle>
             <DialogDescription>

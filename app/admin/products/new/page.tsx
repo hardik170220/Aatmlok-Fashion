@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 
@@ -15,18 +15,9 @@ import { Switch } from "@/components/ui/switch"
 import { AdminLayout } from "@/components/admin/admin-layout"
 import { ImageUpload } from "@/components/admin/image-upload"
 
-const categories = [
-  { value: "Jewellery", label: "Jewellery" },
-  // { value: "Earrings", label: "Earrings" },
-  // { value: "Bangles", label: "Bangles" },
-  { value: "Dresses", label: "Dresses" },
-  { value: "Sarees", label: "Sarees" },
-  // { value: "Suits", label: "Suits" },
-  { value: "Others", label: "Others" },
-]
-
 export default function NewProductPage() {
   const router = useRouter()
+  const [categories, setCategories] = useState<any[]>([])
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -39,6 +30,23 @@ export default function NewProductPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // Add useEffect to fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("/api/categories")
+        if (response.ok) {
+          const data = await response.json()
+          setCategories(data)
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error)
+      }
+    }
+
+    fetchCategories()
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -66,10 +74,14 @@ export default function NewProductPage() {
     setIsSubmitting(true)
     setError(null)
 
+    // Initialize error message outside the try block
+    let errorMessage = null
+
     try {
       // Validate form data
       if (!formData.image) {
-        throw new Error("Please upload a product image")
+        errorMessage = "Please upload a product image"
+        throw new Error(errorMessage)
       }
 
       // Convert price and stock to numbers
@@ -88,13 +100,14 @@ export default function NewProductPage() {
       })
 
       if (!response.ok) {
-        throw new Error("Failed to create product")
+        errorMessage = "Failed to create product"
+        throw new Error(errorMessage)
       }
 
       router.push("/admin/products")
     } catch (error: any) {
       console.error("Error creating product:", error)
-      setError(error.message || "Failed to create product. Please try again.")
+      setError(errorMessage || "Failed to create product. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
@@ -183,11 +196,17 @@ export default function NewProductPage() {
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category.value} value={category.value}>
-                        {category.label}
+                    {categories.length > 0 ? (
+                      categories.map((category) => (
+                        <SelectItem key={category._id} value={category.name}>
+                          {category.name}
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <SelectItem value="" disabled>
+                        No categories found
                       </SelectItem>
-                    ))}
+                    )}
                   </SelectContent>
                 </Select>
               </div>
@@ -220,4 +239,3 @@ export default function NewProductPage() {
     </AdminLayout>
   )
 }
-

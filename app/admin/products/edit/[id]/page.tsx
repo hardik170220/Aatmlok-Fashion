@@ -16,19 +16,10 @@ import { AdminLayout } from "@/components/admin/admin-layout"
 import { ImageUpload } from "@/components/admin/image-upload"
 import { useToast } from "@/components/ui/use-toast"
 
-const categories = [
-  { value: "Jewellery", label: "Jewellery" },
-  // { value: "Earrings", label: "Earrings" },
-  // { value: "Bangles", label: "Bangles" },
-  { value: "Dresses", label: "Dresses" },
-  { value: "Sarees", label: "Sarees" },
-  // { value: "Suits", label: "Suits" },
-  { value: "Others", label: "Others" },
-]
-
 export default function EditProductPage({ params }: { params: { id: string } }) {
   const router = useRouter()
   const { toast } = useToast()
+  const [categories, setCategories] = useState<any[]>([])
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -46,6 +37,23 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
 
   useEffect(() => {
     fetchProduct()
+  }, [])
+
+  // Add useEffect to fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("/api/categories")
+        if (response.ok) {
+          const data = await response.json()
+          setCategories(data)
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error)
+      }
+    }
+
+    fetchCategories()
   }, [])
 
   const fetchProduct = async () => {
@@ -259,11 +267,17 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category.value} value={category.value}>
-                        {category.label}
+                    {categories.length > 0 ? (
+                      categories.map((category) => (
+                        <SelectItem key={category._id} value={category.name}>
+                          {category.name}
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <SelectItem value="" disabled>
+                        No categories found
                       </SelectItem>
-                    ))}
+                    )}
                   </SelectContent>
                 </Select>
               </div>
@@ -296,4 +310,3 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
     </AdminLayout>
   )
 }
-

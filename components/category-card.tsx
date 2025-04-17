@@ -11,7 +11,7 @@ export function CategoryCard({ name, image, href }: CategoryCardProps) {
   return (
     <Link href={href} className="group">
       <div className="relative overflow-hidden rounded-lg">
-        <div className="relative h-[200px] w-full overflow-hidden">
+        <div className="relative h-[150px] sm:h-[180px] w-full overflow-hidden">
           <Image
             src={image || "/placeholder.svg"}
             alt={name}
@@ -21,10 +21,9 @@ export function CategoryCard({ name, image, href }: CategoryCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-4">
-          <h3 className="text-xl font-bold text-white">{name}</h3>
+          <h3 className="text-sm sm:text-lg md:text-xl font-bold text-white">{name}</h3>
         </div>
       </div>
     </Link>
   )
 }
-

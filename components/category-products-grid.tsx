@@ -17,13 +17,17 @@ export function CategoryProductsGrid({ category }: CategoryProductsGridProps) {
     const fetchProducts = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch(`/api/products?category=${category}`)
+        console.log(`Fetching products for category: ${category}`)
+
+        // Make the API call with the category parameter
+        const response = await fetch(`/api/products?category=${encodeURIComponent(category)}`)
 
         if (!response.ok) {
           throw new Error("Failed to fetch products")
         }
 
         const data = await response.json()
+        console.log(`Found ${data.length} products for category: ${category}`)
         setProducts(data)
       } catch (error) {
         console.error("Error fetching products:", error)
@@ -33,7 +37,9 @@ export function CategoryProductsGrid({ category }: CategoryProductsGridProps) {
       }
     }
 
-    fetchProducts()
+    if (category) {
+      fetchProducts()
+    }
   }, [category])
 
   if (isLoading) {
@@ -58,7 +64,7 @@ export function CategoryProductsGrid({ category }: CategoryProductsGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       {products.map((product: any) => (
         <ProductCard
           key={product._id}
@@ -72,4 +78,3 @@ export function CategoryProductsGrid({ category }: CategoryProductsGridProps) {
     </div>
   )
 }
-

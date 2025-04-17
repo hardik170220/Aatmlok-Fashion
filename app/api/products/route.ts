@@ -19,7 +19,8 @@ export async function GET(request: NextRequest) {
     const query: any = {}
 
     if (category) {
-      query.category = category
+      // Make category search case-insensitive
+      query.category = { $regex: new RegExp(`^${category}$`, "i") }
     }
 
     if (search) {
@@ -41,6 +42,8 @@ export async function GET(request: NextRequest) {
       query.featured = true
     }
 
+    console.log("Query:", JSON.stringify(query))
+
     let productsQuery = Product.find(query).sort({ createdAt: -1 })
 
     if (limit) {
@@ -48,6 +51,7 @@ export async function GET(request: NextRequest) {
     }
 
     const products = await productsQuery
+    console.log(`Found ${products.length} products`)
 
     return NextResponse.json(products)
   } catch (error) {
@@ -70,4 +74,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Failed to create product" }, { status: 500 })
   }
 }
-
